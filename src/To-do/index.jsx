@@ -3,7 +3,6 @@ import "./to-do.css";
 export default function Todo() {
   const [inputValue, setInputValue] = useState({ task: "" });
   const [row, setRow] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
 
   function formInput(event) {
     console.log("formInput", event);
@@ -20,13 +19,17 @@ export default function Todo() {
   }
 
   const submitHandler = () => {
-    setRow((preval) => {
-      console.log("Task", inputValue);
-      const data = JSON.stringify([...preval, inputValue]);
-      localStorage.setItem("Task-to-do", data);
-      return [...preval, inputValue];
-    });
-    console.log("object", row);
+    if (inputValue.task.trim() !== "") {
+      setRow((preval) => {
+        console.log("Task", inputValue);
+        const newTask = { task: inputValue.task, isChecked: false };
+        const data = JSON.stringify([...preval, newTask]);
+        localStorage.setItem("Task-to-do", data);
+        return [...preval, newTask];
+      });
+      console.log("object", row);
+      setInputValue({ task: "" });
+    }
   };
 
   const onComponentMount = () => {
@@ -37,8 +40,18 @@ export default function Todo() {
     }
   };
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+  //   const handleCheckboxChange = () => {
+  //     setIsChecked(!isChecked);
+  //   };
+
+  const handleCheckboxChange = (index) => {
+    setRow((prevRow) => {
+      const updatedRow = prevRow.map((task, i) =>
+        i === index ? { ...task, isChecked: !task.isChecked } : task
+      );
+      localStorage.setItem("Task-to-do", JSON.stringify(updatedRow));
+      return updatedRow;
+    });
   };
 
   useEffect(onComponentMount, []);
@@ -48,20 +61,20 @@ export default function Todo() {
       <div className="container">
         <h1>Todo App</h1>
 
-        {row.map((ele) => (
+        {row.map((ele, index) => (
           <div className="items-row">
             <div class="check-box">
               <input
                 className="checkbox"
                 type="checkbox"
                 value=""
-                id="flexCheckChecked"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
+                id={`flexCheckChecked${index}`}
+                checked={ele.isChecked}
+                onChange={() => handleCheckboxChange(index)}
               />
               <span className="todos">{ele.task}</span>
             </div>
-            {isChecked && <small className="msg">complete</small>}
+            {ele.isChecked && <small className="msg">complete</small>}
           </div>
         ))}
 
