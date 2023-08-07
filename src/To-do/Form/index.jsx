@@ -1,8 +1,23 @@
 import React from "react";
 import "./form.css";
-export default function Form({ name, type, value, onChange, placeholder }) {
+export default function Inputbox({
+  name,
+  type,
+  value,
+  onChange,
+  placeholder,
+  isRed,
+}) {
+  // console.log("4", isRed, value, typeof value);
+  // const valueValidator = () => {
+  //   if (value) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
   return (
-    <div className="form">
+    <div className={`form ${isRed ? "form-validation" : ""}`}>
       <input
         type={type}
         name={name}

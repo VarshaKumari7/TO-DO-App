@@ -7,7 +7,7 @@
     justify-content: center;
     flex-direction: column;
     margin-left: 10%;
-    width: 100%;
+    width: 80%;
 }
 .task-container{
     background-color: white;
@@ -26,42 +26,56 @@
 .check-box {
     display: flex;
     align-items: center;
-    gap: 20%;
 }
 
 input.checkbox {
-    margin-left: 29px;
     height: 30px;
     width: 51px;
 }
 
 .todos {
-    font-size:1.5rem;
+    overflow-wrap: break-word;
+    margin: 0 auto;
+    max-width: 406px;
+    padding: 12px;
+    font-size: 2.2rem;
 }
 
 .todos-checked{
     text-decoration: line-through;
 }
 .delete-icon img{
-    width: 15%;
+    width: 64px;
 }
 
 @media screen and (max-width: 500px){ 
     .items-row {
     padding: 9% 0;
-    /* margin-top: 5%; */
     width: 100%;
     }
     .task-box-container{
         margin: 0;
+        width: 100%;
     }
+    .todos{
+        max-width: 77px;
+        font-size: 0.8rem;
+    }
+     input .checkbox{
+        margin: 0;
+     }
 }
 @media screen and (min-width:500px) and (max-width:820px) {
 .delete-icon img {
-    width: 59%;
+    width: 58px;
+}
+.todos{
+        margin: 0 auto;
+        max-width: 154px;
+        font-size: 1.5rem;
 }
 
- .delete-icon {
-     margin-left: 65%;
+ .items-row{
+    overflow: scroll;
  }
 }
