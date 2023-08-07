@@ -27,6 +27,7 @@ export default function Todo() {
       });
       setTodoText("");
       console.log(taskList);
+      console.log("30", todoText);
       setIsRed(false);
     } else {
       setIsRed(true);
