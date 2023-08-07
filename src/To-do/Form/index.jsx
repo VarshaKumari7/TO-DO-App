@@ -2,7 +2,7 @@ import React from "react";
 import "./form.css";
 export default function Form({ name, type, value, onChange, placeholder }) {
   return (
-    <div className="form">
+    <div className="form form-validation">
       <input
         type={type}
         name={name}

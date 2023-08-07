@@ -14,16 +14,18 @@ export default function Todo() {
   }
 
   const submitHandler = () => {
-    setTaskList((pretask) => {
-      const task = {
-        id: Math.random() * 1234,
-        taskName: todoText,
-        completed: false,
-      };
-      return [...pretask, task];
-    });
-    setTodoText("");
-    console.log(taskList);
+    if (todoText.trim() !== "") {
+      setTaskList((pretask) => {
+        const task = {
+          id: Math.random() * 1234,
+          taskName: todoText,
+          completed: false,
+        };
+        return [...pretask, task];
+      });
+      setTodoText("");
+      console.log(taskList);
+    }
   };
 
   const handleCheckboxChange = (id) => {
