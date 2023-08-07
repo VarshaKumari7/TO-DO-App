@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import "./to-do.css";
-import Form from "./Form";
 import Task from "./Task";
 import Button from "./Button";
+import Inputbox from "./Form";
 export default function Todo() {
   const [todoText, setTodoText] = useState("");
   const [taskList, setTaskList] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isRed, setIsRed] = useState(false);
 
   function formInput(event) {
     const valueData = event.target.value;
     setTodoText(valueData);
   }
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     if (todoText.trim() !== "") {
       setTaskList((pretask) => {
         const task = {
@@ -25,13 +27,16 @@ export default function Todo() {
       });
       setTodoText("");
       console.log(taskList);
+      setIsRed(false);
+    } else {
+      setIsRed(true);
     }
   };
 
   const handleCheckboxChange = (id) => {
     console.log(id, taskList);
     taskList.map((task) => {
-      if (task.id == id) {
+      if (task.id === id) {
         task.completed = !task.completed;
         setIsChecked(!isChecked);
         return { ...task };
@@ -44,15 +49,16 @@ export default function Todo() {
     <div className="container">
       <div className="body-container">
         <div className="content-part">
-          <div className="form-box">
-            <Form
+          <form className="form-box">
+            <Inputbox
               type={"text"}
               placeholder={"What needs to be done?"}
               value={todoText}
               onChange={formInput}
+              isRed={isRed}
             />
             <Button submitHandler={submitHandler} title={"Add task"}></Button>
-          </div>
+          </form>
           <Task
             type={"checkbox"}
             checked={isChecked}
