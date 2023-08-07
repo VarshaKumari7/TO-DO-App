@@ -16,7 +16,10 @@ export default function Todo() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (todoText.trim() !== "") {
+    if (
+      todoText.trim() !== "" &&
+      !taskList.some((task) => task.taskName === todoText)
+    ) {
       setTaskList((pretask) => {
         const task = {
           id: Math.random() * 1234,
