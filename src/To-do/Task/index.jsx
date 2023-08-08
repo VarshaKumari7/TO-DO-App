@@ -14,6 +14,9 @@ export default function Task({
     });
     console.log("data after deletion", data);
     setTaskList(data);
+    const updatedData = JSON.stringify(data);
+    console.log("updatedData 18", updatedData);
+    localStorage.setItem("todotask", updatedData);
   };
   return (
     <div className="task-box-container">
