@@ -68,6 +68,7 @@ export default function Todo() {
             checked={isChecked}
             onChange={handleCheckboxChange}
             taskList={taskList}
+            setTaskList={setTaskList}
           />
         </div>
       </div>

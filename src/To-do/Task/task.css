@@ -45,8 +45,10 @@ input.checkbox {
 .todos-checked{
     text-decoration: line-through;
 }
+
 .delete-icon img{
     width: 64px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 500px){ 
