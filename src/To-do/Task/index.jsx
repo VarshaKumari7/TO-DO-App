@@ -5,18 +5,25 @@ export default function Task({
   className = "checkbox",
   onChange,
   taskList,
+  setTodoText,
   setTaskList,
+  setIsEdit,
 }) {
   const deleteHandler = (id) => {
     const data = taskList.filter((e) => {
-      console.log("12", e, id);
+      // console.log("12", e, id);
       return id !== e.id;
     });
     console.log("data after deletion", data);
     setTaskList(data);
     const updatedData = JSON.stringify(data);
-    console.log("updatedData 18", updatedData);
+    // console.log("updatedData 18", updatedData);
     localStorage.setItem("todotask", updatedData);
+  };
+
+  const updateHandler = (taskValue) => {
+    setTodoText(taskValue.taskName);
+    setIsEdit(true);
   };
   return (
     <div className="task-box-container">
@@ -39,6 +46,16 @@ export default function Task({
               >
                 {taskValue.taskName}
               </div>
+            </div>
+            <div className="delete-icon">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
+                alt="img"
+                onClick={() => {
+                  // updateHandler(taskValue.taskName);
+                  updateHandler(taskValue);
+                }}
+              />
             </div>
 
             <div className="delete-icon">
