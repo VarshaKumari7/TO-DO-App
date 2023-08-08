@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./to-do.css";
 import Task from "./Task";
 import Button from "./Button";
@@ -16,22 +16,38 @@ export default function Todo() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (todoText.trim() !== "") {
+    if (
+      todoText.trim() !== "" &&
+      !taskList.some((task) => task.taskName === todoText)
+    ) {
       setTaskList((pretask) => {
         const task = {
           id: Math.random() * 1234,
           taskName: todoText,
           completed: false,
         };
+        const data = JSON.stringify([...pretask, task]);
+        localStorage.setItem("todotask", data);
+        console.log("26 localData", data);
         return [...pretask, task];
       });
       setTodoText("");
-      console.log(taskList);
+      console.log(taskList, "35");
+      console.log("36", todoText);
       setIsRed(false);
     } else {
       setIsRed(true);
     }
   };
+
+  const componentOnMount = () => {
+    const data = JSON.parse(localStorage.getItem("todotask"));
+    console.log(data, "Data Value");
+    if (data) {
+      setTaskList([...data]);
+    }
+  };
+  useEffect(componentOnMount, []);
 
   const handleCheckboxChange = (id) => {
     console.log(id, taskList);
@@ -64,6 +80,7 @@ export default function Todo() {
             checked={isChecked}
             onChange={handleCheckboxChange}
             taskList={taskList}
+            setTaskList={setTaskList}
           />
         </div>
       </div>

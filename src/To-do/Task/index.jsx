@@ -5,7 +5,19 @@ export default function Task({
   className = "checkbox",
   onChange,
   taskList,
+  setTaskList,
 }) {
+  const deleteHandler = (id) => {
+    const data = taskList.filter((e) => {
+      console.log("12", e, id);
+      return id !== e.id;
+    });
+    console.log("data after deletion", data);
+    setTaskList(data);
+    const updatedData = JSON.stringify(data);
+    console.log("updatedData 18", updatedData);
+    localStorage.setItem("todotask", updatedData);
+  };
   return (
     <div className="task-box-container">
       {taskList.map((taskValue, index) => {
@@ -33,6 +45,9 @@ export default function Task({
               <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
                 alt="img"
+                onClick={() => {
+                  deleteHandler(taskValue.id);
+                }}
               />
             </div>
           </div>
