@@ -9,62 +9,65 @@ export default function Todo() {
   const [isChecked, setIsChecked] = useState(false);
   const [isRed, setIsRed] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [editedTodo, setEditedTodo] = useState({});
 
+  console.log(editedTodo, "editedTodo");
   function formInput(event) {
     const valueData = event.target.value;
     setTodoText(valueData);
   }
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  function handleEdit(editEvent) {
+    const task = editEvent;
+    setTaskList((preval) => {
+      const editedData = preval.map((taskval) => {
+        if (taskval.id === task.id) {
+          taskval["taskName"] = todoText;
+        }
+        return taskval;
+      });
+      console.log("editedData 39", editedData);
+      const data = JSON.stringify([...editedData]);
+      localStorage.setItem("todotask", data);
+      return [...editedData];
+    });
+    setIsEdit(false);
+    setTodoText("");
+  }
+
+  function addTaskHandler() {
     const task = {
       id: Math.random() * 1234,
       taskName: todoText,
       completed: false,
     };
-    if (isEdit) {
-      setTaskList((preval) => {
-        const editedData = preval.map((taskval) => {
-          if (taskval.id === task.id) {
-            return task.taskName;
-          } else {
-            return taskval;
-          }
-        });
-        console.log("editedData 39", editedData);
-        const data = JSON.stringify([...editedData]);
-        localStorage.setItem("candidate", data);
-        return [...editedData];
+    if (
+      todoText.trim() !== "" &&
+      !taskList.some((task) => task.taskName === todoText)
+    ) {
+      setTaskList((pretask) => {
+        const data = JSON.stringify([...pretask, task]);
+        localStorage.setItem("todotask", data);
+        return [...pretask, task];
       });
+      setTodoText("");
+      setIsRed(false);
     } else {
-      if (
-        todoText.trim() !== "" &&
-        !taskList.some((task) => task.taskName === todoText)
-      ) {
-        setTaskList((pretask) => {
-          // const task = {
-          //   id: Math.random() * 1234,
-          //   taskName: todoText,
-          //   completed: false,
-          // };
-          const data = JSON.stringify([...pretask, task]);
-          localStorage.setItem("todotask", data);
-          // console.log("26 localData", data);
-          return [...pretask, task];
-        });
-        setTodoText("");
-        // console.log(taskList, "35");
-        // console.log("36", todoText);
-        setIsRed(false);
-      } else {
-        setIsRed(true);
-      }
+      setIsRed(true);
+    }
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (isEdit) {
+      handleEdit(editedTodo);
+    } else {
+      addTaskHandler(todoText);
     }
   };
 
   const componentOnMount = () => {
     const data = JSON.parse(localStorage.getItem("todotask"));
-    // console.log(data, "Data Value");
     if (data) {
       setTaskList([...data]);
     }
@@ -72,7 +75,6 @@ export default function Todo() {
   useEffect(componentOnMount, []);
 
   const handleCheckboxChange = (id) => {
-    // console.log(id, taskList);
     taskList.map((task) => {
       if (task.id === id) {
         task.completed = !task.completed;
@@ -81,7 +83,6 @@ export default function Todo() {
       }
       return task;
     });
-    // console.log(taskList);
   };
   return (
     <div className="container">
@@ -105,6 +106,7 @@ export default function Todo() {
             setTaskList={setTaskList}
             setTodoText={setTodoText}
             setIsEdit={setIsEdit}
+            setEditedTodo={setEditedTodo}
           />
         </div>
       </div>

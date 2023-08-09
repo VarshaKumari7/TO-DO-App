@@ -8,21 +8,21 @@ export default function Task({
   setTodoText,
   setTaskList,
   setIsEdit,
+  setEditedTodo,
 }) {
   const deleteHandler = (id) => {
     const data = taskList.filter((e) => {
-      // console.log("12", e, id);
       return id !== e.id;
     });
     console.log("data after deletion", data);
     setTaskList(data);
     const updatedData = JSON.stringify(data);
-    // console.log("updatedData 18", updatedData);
     localStorage.setItem("todotask", updatedData);
   };
 
   const updateHandler = (taskValue) => {
     setTodoText(taskValue.taskName);
+    setEditedTodo(taskValue);
     setIsEdit(true);
   };
   return (
@@ -47,25 +47,25 @@ export default function Task({
                 {taskValue.taskName}
               </div>
             </div>
-            <div className="delete-icon">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
-                alt="img"
-                onClick={() => {
-                  // updateHandler(taskValue.taskName);
-                  updateHandler(taskValue);
-                }}
-              />
-            </div>
-
-            <div className="delete-icon">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
-                alt="img"
-                onClick={() => {
-                  deleteHandler(taskValue.id);
-                }}
-              />
+            <div className="icon">
+              <div className="edit-icon">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
+                  alt="img"
+                  onClick={() => {
+                    updateHandler(taskValue);
+                  }}
+                />
+              </div>
+              <div className="delete-icon">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
+                  alt="img"
+                  onClick={() => {
+                    deleteHandler(taskValue.id);
+                  }}
+                />
+              </div>
             </div>
           </div>
         );
