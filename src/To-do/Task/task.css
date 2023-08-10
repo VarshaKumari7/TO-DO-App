@@ -11,6 +11,10 @@
     height: 495px;
     overflow-y: scroll;
 }
+
+.task-box-container::-webkit-scrollbar {
+    display: none;
+}
 .task-container{
     background-color: white;
 }

@@ -17,6 +17,8 @@
 
 .content-part{
     margin: 6%;
+    /* height: 72vh; */
+    height: 67vh;
 }
 
 .form-box{
