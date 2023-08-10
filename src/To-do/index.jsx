@@ -3,6 +3,7 @@ import "./to-do.css";
 import Task from "./Task";
 import Button from "./Button";
 import Inputbox from "./Form";
+import { useRef } from "react";
 export default function Todo() {
   const [todoText, setTodoText] = useState("");
   const [taskList, setTaskList] = useState([]);
@@ -10,6 +11,7 @@ export default function Todo() {
   const [isRed, setIsRed] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editedTodo, setEditedTodo] = useState({});
+  const [currentCategory, setCurrentCategory] = useState("all");
 
   console.log(editedTodo, "editedTodo");
   function formInput(event) {
@@ -84,6 +86,9 @@ export default function Todo() {
       return task;
     });
   };
+
+  const referenceInput = useRef(null);
+
   return (
     <div className="container">
       <div className="body-container">
@@ -95,6 +100,7 @@ export default function Todo() {
               value={todoText}
               onChange={formInput}
               isRed={isRed}
+              referenceInput={referenceInput}
             />
             <Button submitHandler={submitHandler} title={"Add task"}></Button>
           </form>
@@ -107,7 +113,20 @@ export default function Todo() {
             setTodoText={setTodoText}
             setIsEdit={setIsEdit}
             setEditedTodo={setEditedTodo}
+            referenceInput={referenceInput}
+            currentCategory={currentCategory}
           />
+        </div>
+        <div className="book-list" style={{ cursor: "pointer" }}>
+          <div className="btn" onClick={() => setCurrentCategory("all")}>
+            All
+          </div>
+          <div className="btn" onClick={() => setCurrentCategory("active")}>
+            Active
+          </div>
+          <div className="btn" onClick={() => setCurrentCategory("completed")}>
+            Completed
+          </div>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ export default function Inputbox({
   onChange,
   placeholder,
   isRed,
+  referenceInput,
 }) {
   // console.log("4", isRed, value, typeof value);
   // const valueValidator = () => {
@@ -24,6 +25,8 @@ export default function Inputbox({
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        autoFocus
+        ref={referenceInput}
       />
     </div>
   );

@@ -22,3 +22,8 @@
 .form-box{
     display: flex;
 }
+.book-list{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

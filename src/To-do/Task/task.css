@@ -4,10 +4,12 @@
 
 .task-box-container{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
     margin-left: 10%;
     width: 80%;
+    height: 495px;
+    overflow-y: scroll;
 }
 .task-container{
     background-color: white;
