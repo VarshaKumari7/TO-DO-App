@@ -4,6 +4,9 @@ import Task from "./Task";
 import Button from "./Button";
 import Inputbox from "./Form";
 import { useRef } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 export default function Todo() {
   const [todoText, setTodoText] = useState("");
   const [taskList, setTaskList] = useState([]);
@@ -12,6 +15,15 @@ export default function Todo() {
   const [isEdit, setIsEdit] = useState(false);
   const [editedTodo, setEditedTodo] = useState({});
   const [currentCategory, setCurrentCategory] = useState("all");
+  // const [deadline, setDeadline] = useState(null);
+  const [date, setDate] = useState(new Date());
+  const [endDate, setEndDate] = useState();
+
+  const handleChange = (range) => {
+    const [date, endDate] = range;
+    setDate(date);
+    setEndDate(endDate);
+  };
 
   console.log(editedTodo, "editedTodo");
   function formInput(event) {
@@ -42,6 +54,7 @@ export default function Todo() {
       id: Math.random() * 1234,
       taskName: todoText,
       completed: false,
+      deadline: endDate,
     };
     if (
       todoText.trim() !== "" &&
@@ -54,6 +67,7 @@ export default function Todo() {
       });
       setTodoText("");
       setIsRed(false);
+      setEndDate(null);
     } else {
       setIsRed(true);
     }
@@ -87,7 +101,23 @@ export default function Todo() {
     });
   };
 
+  function getTimeRemaining(endDate) {
+    console.log(" 96666", endDate);
+    if (!endDate) return "No deadline set";
+    const newDate = new Date();
+    const timeDiff = endDate - newDate;
+    if (timeDiff <= 0) return "Deadline passed";
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    return `${days}d ${hours}h ${minutes}m`;
+  }
+
   const referenceInput = useRef(null);
+
+  const dataPickerHandler = () => {};
 
   return (
     <div className="container">
@@ -102,6 +132,17 @@ export default function Todo() {
               isRed={isRed}
               referenceInput={referenceInput}
             />
+            <DatePicker
+              selected={date}
+              onChange={handleChange}
+              startDate={date}
+              endDate={endDate}
+              selectsRange
+              dateFormat="MM/dd/yyyy kk:mm aa"
+              // showTimeSelect
+              // minTime={new Date(0, 0, 0, 1, 0)}
+              // maxTime={new Date(0, 0, 0, 24, 0)}
+            />
             <Button submitHandler={submitHandler} title={"Add task"}></Button>
           </form>
           <Task
@@ -115,6 +156,7 @@ export default function Todo() {
             setEditedTodo={setEditedTodo}
             referenceInput={referenceInput}
             currentCategory={currentCategory}
+            getTimeRemaining={getTimeRemaining}
           />
         </div>
         <div className="book-list" style={{ cursor: "pointer" }}>

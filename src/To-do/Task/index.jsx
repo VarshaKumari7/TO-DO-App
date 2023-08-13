@@ -11,11 +11,10 @@ export default function Task({
   setEditedTodo,
   referenceInput,
   currentCategory,
+  getTimeRemaining,
 }) {
   const activeTasks = taskList.filter((task) => !task.completed);
-  // console.log("155555 active task", activeTasks);
   const completedTasks = taskList.filter((task) => task.completed);
-  // console.log("1777777 completed task", completedTasks);
   const deleteHandler = (id) => {
     const data = taskList.filter((e) => {
       return id !== e.id;
@@ -25,13 +24,14 @@ export default function Task({
     const updatedData = JSON.stringify(data);
     localStorage.setItem("todotask", updatedData);
   };
-
   const updateHandler = (taskValue) => {
     setTodoText(taskValue.taskName);
     setEditedTodo(taskValue);
     setIsEdit(true);
     referenceInput.current.focus();
+    console.log("object3444444", taskValue);
   };
+
   const renderTasks = () => {
     switch (currentCategory) {
       case "all":
@@ -52,6 +52,12 @@ export default function Task({
                 }`}
               >
                 {taskValue.taskName}
+              </div>
+              <div className="deadline">
+                Deadline Expired :{" "}
+                {taskValue.deadline
+                  ? getTimeRemaining(taskValue.deadline)
+                  : "Not set"}
               </div>
             </div>
             <div className="icon">
