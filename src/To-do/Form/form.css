@@ -61,7 +61,8 @@
     .content-part{
         margin-top: 25%;
         padding: 0 11%;
-        height: 79vh;
+        /* height: 79vh; */
+        height: 72vh;
     }
     .items-row{
         padding: 9% 0;
