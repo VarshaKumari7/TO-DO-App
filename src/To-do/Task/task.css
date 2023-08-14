@@ -77,7 +77,9 @@ input.checkbox {
     margin-right: 10px;
 }
 
-
+.react-datepicker__input-container input{
+    padding: 7px;
+}
 
 
 @media screen and (max-width: 500px){ 
