@@ -43,3 +43,7 @@
 .react-datetime-picker {
     flex: 3;
 }
+
+.MuiInputBase-root {
+    background-color: white;
+}

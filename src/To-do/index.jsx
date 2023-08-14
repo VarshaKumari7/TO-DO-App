@@ -4,8 +4,14 @@ import Task from "./Task";
 import Button from "./Button";
 import Inputbox from "./Form";
 import { useRef } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { TextField } from "@mui/material";
+dayjs.extend(relativeTime);
 
 export default function Todo() {
   const [todoText, setTodoText] = useState("");
@@ -15,17 +21,8 @@ export default function Todo() {
   const [isEdit, setIsEdit] = useState(false);
   const [editedTodo, setEditedTodo] = useState({});
   const [currentCategory, setCurrentCategory] = useState("all");
-  // const [deadline, setDeadline] = useState(null);
-  const [date, setDate] = useState(new Date());
-  const [endDate, setEndDate] = useState();
+  const [selectedDate, setSelectedDate] = useState(dayjs());
 
-  const handleChange = (range) => {
-    const [date, endDate] = range;
-    setDate(date);
-    setEndDate(endDate);
-  };
-
-  // console.log(editedTodo, "editedTodo");
   function formInput(event) {
     const valueData = event.target.value;
     setTodoText(valueData);
@@ -40,7 +37,6 @@ export default function Todo() {
         }
         return taskval;
       });
-      // console.log("editedData 39", editedData);
       const data = JSON.stringify([...editedData]);
       localStorage.setItem("todotask", data);
       return [...editedData];
@@ -54,7 +50,7 @@ export default function Todo() {
       id: Math.random() * 1234,
       taskName: todoText,
       completed: false,
-      deadline: endDate ? endDate.toISOString() : null,
+      deadline: selectedDate.format(),
     };
     if (
       todoText.trim() !== "" &&
@@ -68,11 +64,49 @@ export default function Todo() {
       });
       setTodoText("");
       setIsRed(false);
-      setEndDate(null);
+      setSelectedDate(null);
     } else {
       setIsRed(true);
     }
   }
+  const handeDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
+
+  const getTimeRemaining = (deadline) => {
+    const now = dayjs();
+    const deadlineTime = dayjs(deadline);
+
+    if (now.isAfter(deadlineTime)) {
+      const diff = now.diff(deadlineTime);
+
+      const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+      const hours = Math.floor(
+        (diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+      );
+      const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+
+      if (days > 0) {
+        return `Deadline Expired ${days} days ${hours} hours ${minutes} minutes ago`;
+      } else if (hours > 0) {
+        return `Deadline Expired ${hours} hours ${minutes} minutes ago`;
+      } else if (minutes > 0) {
+        return `Deadline Expired ${minutes} minutes ago`;
+      } else {
+        return "Deadline Expired just now";
+      }
+    } else {
+      const diff = deadlineTime.diff(now);
+
+      const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+      const hours = Math.floor(
+        (diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+      );
+      const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+
+      return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -83,31 +117,15 @@ export default function Todo() {
     }
   };
 
-  // const componentOnMount = () => {
-  //   const data = JSON.parse(localStorage.getItem("todotask"));
-  //   console.log("get data from localstorage", data);
-  //   if (data) {
-  //     setTaskList([...data]);
-  //   }
-  // };
-
   const componentOnMount = () => {
     const data = JSON.parse(localStorage.getItem("todotask"));
+    console.log("get data from localstorage", data);
     if (data) {
-      const tasksWithParsedDeadline = data.map((task) => {
-        if (task.deadline) {
-          return {
-            ...task,
-            deadline: new Date(task.deadline),
-          };
-        }
-        return task;
-      });
-
-      setTaskList([...tasksWithParsedDeadline]);
+      setTaskList([...data]);
     }
   };
-  useEffect(componentOnMount, [endDate, editedTodo]);
+
+  useEffect(componentOnMount, []);
 
   const handleCheckboxChange = (id) => {
     taskList.map((task) => {
@@ -120,38 +138,7 @@ export default function Todo() {
     });
   };
 
-  function getTimeRemaining(endDate) {
-    if (!endDate) return "No deadline set";
-
-    const now = new Date();
-    const timeDiff = endDate - now;
-
-    if (timeDiff <= 0) {
-      const expiredDays = Math.abs(
-        Math.floor(timeDiff / (1000 * 60 * 60 * 24))
-      );
-      const expiredHours = Math.abs(
-        Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-      );
-      const expiredMinutes = Math.abs(
-        Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
-      );
-
-      return `Deadline Expired ${expiredDays} days ${expiredHours} hours ${expiredMinutes} minutes ago`;
-    }
-
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-    return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
-  }
-
   const referenceInput = useRef(null);
-
-  const dataPickerHandler = () => {};
 
   return (
     <div className="container">
@@ -166,17 +153,15 @@ export default function Todo() {
               isRed={isRed}
               referenceInput={referenceInput}
             />
-            <DatePicker
-              selected={date}
-              onChange={handleChange}
-              startDate={date}
-              endDate={endDate}
-              selectsRange
-              dateFormat="MM/dd/yyyy kk:mm aa"
-              // showTimeSelect
-              // minTime={new Date(0, 0, 0, 1, 0)}
-              // maxTime={new Date(0, 0, 0, 24, 0)}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DateTimePicker"]}>
+                <DateTimePicker
+                  value={selectedDate}
+                  onChange={handeDateChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <Button submitHandler={submitHandler} title={"Add task"}></Button>
           </form>
           <Task
