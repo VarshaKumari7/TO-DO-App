@@ -54,7 +54,6 @@ export default function Task({
                 {taskValue.taskName}
               </div>
               <div className="deadline">
-                Deadline Expired :{" "}
                 {taskValue.deadline
                   ? getTimeRemaining(taskValue.deadline)
                   : "Not set"}
@@ -101,6 +100,11 @@ export default function Task({
               >
                 {taskValue.taskName}
               </div>
+              <div className="deadline">
+                {taskValue.deadline
+                  ? getTimeRemaining(taskValue.deadline)
+                  : "Not set"}
+              </div>
             </div>
             <div className="icon">
               <div className="edit-icon">
@@ -142,6 +146,11 @@ export default function Task({
                 }`}
               >
                 {taskValue.taskName}
+              </div>
+              <div className="deadline">
+                {taskValue.deadline
+                  ? getTimeRemaining(taskValue.deadline)
+                  : "Not set"}
               </div>
             </div>
             <div className="icon">

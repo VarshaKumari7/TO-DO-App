@@ -5,9 +5,9 @@
 .task-box-container{
     /* display: flex; */
     /* justify-content: center; */
-    flex-direction: column;
-    margin-left: 10%;
-    width: 80%;
+    /* flex-direction: column; */
+    /* margin-left: 10%; */
+    /* width: 80%; */
     height: 495px;
     overflow-y: scroll;
 }
@@ -43,7 +43,9 @@ input.checkbox {
 .todos {
     overflow-wrap: break-word;
     margin: 0 auto;
-    max-width: 406px;
+    /* max-width: 406px; */
+    /* max-width: 334px; */
+    width: 334px;
     padding: 12px;
     font-size: 2rem;
 }
@@ -52,6 +54,14 @@ input.checkbox {
     text-decoration: line-through;
 }
 
+.deadline{
+    overflow-wrap: break-word;
+    margin: 0 auto;
+    max-width: 222px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+}
 .icon {
     display: flex;
     align-items: center;
@@ -72,12 +82,20 @@ input.checkbox {
 
 @media screen and (max-width: 500px){ 
     .items-row {
-    padding: 9% 0;
-    width: 100%;
+        padding: 9% 0;
+        width: 100%;
+    }
+
+    .deadline{
+        font-size: .5rem;
+        font-weight: 900;
     }
     .task-box-container{
         margin: 0;
         width: 100%;
+        /* height: 409px; */
+        /* height: 678px */
+        height: 444px;
     }
     .todos{
         /* max-width: 77px; */
@@ -98,12 +116,23 @@ input.checkbox {
     width: 48px;
 }
 .todos{
-        margin: 0 auto;
-        max-width: 154px;
-        font-size: 1.5rem;
+    margin: 0 auto;
+    max-width: 154px;
+    font-size: 1.5rem;
 }
 
  .items-row{
     overflow: scroll;
  }
+
+ .task-box-container{
+    height: 612px;
+ }
 }
+
+
+@media screen and (min-width:820px) and (max-width:1500px) {
+.task-box-container{
+    height: 553px;
+}
+}   

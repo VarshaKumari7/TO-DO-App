@@ -1,23 +1,24 @@
 .form-box{
-    display: flex;
+    /* display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     margin-bottom: 2%;
 }
 
 .form {
-    display: flex;
-    flex: 0.6 1;
-    height: 5vh;
-    width: 80%;
+    /* display: flex;
+    flex: 0.6 1; */
+    flex: 3;
+    /* height: 5vh;
+    width: 80%;  */
 }
 .form-validation{
     border: 2px solid red;
  }
 .form input {
     width: 100%;
-    padding: 17px;
+    /* padding: 17px; */
     border: 1px solid lightgrey;
     /* font-size: 1.3rem; */
     font-size: 0.9rem;
@@ -25,17 +26,18 @@
 }
 
 .btn-section{
-    flex: 1.2;
+    /* flex: 1.2; */
+    flex: 1;
 }
 .bttn {
-    border: 1px solid lightgrey;
+    border: 0px solid lightgrey;
     cursor: pointer;
     /* padding: 24% 14%; */
     background-color: #6977ff;
     font-size: 1rem;
     color: white;
     width: 100%;
-    height: 5vh;
+    /* height: 5vh; */
 }
 
 .items-row{
@@ -82,15 +84,16 @@
     }
 
     .form{
-        flex: 0.6;
+        /* flex: 0.6; */
+        flex: 2.6;
     }
     
     .btn-section{
-        flex: 0.2;
+        flex: 1.2;
     }
-    .bttn{
+    /* .bttn{
         padding: 14% 8%;
-    }
+    } */
 
     
 }

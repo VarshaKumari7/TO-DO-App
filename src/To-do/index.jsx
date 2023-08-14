@@ -25,7 +25,7 @@ export default function Todo() {
     setEndDate(endDate);
   };
 
-  console.log(editedTodo, "editedTodo");
+  // console.log(editedTodo, "editedTodo");
   function formInput(event) {
     const valueData = event.target.value;
     setTodoText(valueData);
@@ -40,7 +40,7 @@ export default function Todo() {
         }
         return taskval;
       });
-      console.log("editedData 39", editedData);
+      // console.log("editedData 39", editedData);
       const data = JSON.stringify([...editedData]);
       localStorage.setItem("todotask", data);
       return [...editedData];
@@ -54,7 +54,7 @@ export default function Todo() {
       id: Math.random() * 1234,
       taskName: todoText,
       completed: false,
-      deadline: endDate,
+      deadline: endDate ? endDate.toISOString() : null,
     };
     if (
       todoText.trim() !== "" &&
@@ -63,6 +63,7 @@ export default function Todo() {
       setTaskList((pretask) => {
         const data = JSON.stringify([...pretask, task]);
         localStorage.setItem("todotask", data);
+
         return [...pretask, task];
       });
       setTodoText("");
@@ -82,13 +83,31 @@ export default function Todo() {
     }
   };
 
+  // const componentOnMount = () => {
+  //   const data = JSON.parse(localStorage.getItem("todotask"));
+  //   console.log("get data from localstorage", data);
+  //   if (data) {
+  //     setTaskList([...data]);
+  //   }
+  // };
+
   const componentOnMount = () => {
     const data = JSON.parse(localStorage.getItem("todotask"));
     if (data) {
-      setTaskList([...data]);
+      const tasksWithParsedDeadline = data.map((task) => {
+        if (task.deadline) {
+          return {
+            ...task,
+            deadline: new Date(task.deadline),
+          };
+        }
+        return task;
+      });
+
+      setTaskList([...tasksWithParsedDeadline]);
     }
   };
-  useEffect(componentOnMount, []);
+  useEffect(componentOnMount, [endDate, editedTodo]);
 
   const handleCheckboxChange = (id) => {
     taskList.map((task) => {
@@ -102,17 +121,32 @@ export default function Todo() {
   };
 
   function getTimeRemaining(endDate) {
-    console.log(" 96666", endDate);
     if (!endDate) return "No deadline set";
-    const newDate = new Date();
-    const timeDiff = endDate - newDate;
-    if (timeDiff <= 0) return "Deadline passed";
+
+    const now = new Date();
+    const timeDiff = endDate - now;
+
+    if (timeDiff <= 0) {
+      const expiredDays = Math.abs(
+        Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+      );
+      const expiredHours = Math.abs(
+        Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      );
+      const expiredMinutes = Math.abs(
+        Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+      );
+
+      return `Deadline Expired ${expiredDays} days ${expiredHours} hours ${expiredMinutes} minutes ago`;
+    }
+
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
       (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    return `${days}d ${hours}h ${minutes}m`;
+
+    return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
   }
 
   const referenceInput = useRef(null);
