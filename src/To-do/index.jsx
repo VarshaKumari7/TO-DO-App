@@ -115,6 +115,7 @@ export default function Todo() {
     } else {
       addTaskHandler(todoText);
     }
+    setSelectedDate(dayjs());
   };
 
   const componentOnMount = () => {

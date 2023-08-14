@@ -18,7 +18,7 @@
  }
 .form input {
     width: 100%;
-    padding: 7px;
+    padding: 10px;
     border: 1px solid lightgrey;
     /* font-size: 1.3rem; */
     font-size: 0.9rem;
@@ -32,7 +32,7 @@
 .bttn {
     border: 0px solid lightgrey;
     cursor: pointer;
-    padding: 7px;
+    padding: 10px;
     background-color: #6977ff;
     font-size: 1rem;
     color: white;
@@ -44,6 +44,18 @@
     width: 100%;
 }
 
+.MuiStack-root {
+    padding: 0;
+}
+
+.css-a643pv-MuiStack-root {
+    padding: 0;
+}
+
+.MuiInputBase-root {
+    border-radius: 0 !important;
+    padding-right: 0 !important;
+}
 @media screen and (max-width:500px){
     .form-box{
         display: block;
@@ -59,7 +71,8 @@
         /* padding: 0; */
     }
     .content-part{
-        margin-top: 25%;
+        /* margin-top: 25%; */
+        margin-top: 17%;
         padding: 0 11%;
         height: 79vh;
     }
@@ -74,6 +87,11 @@
         width: 33px;
         /* margin-left: 62%; */
     }
+
+    .MuiInputBase-root input{
+        padding: 5px;
+    }
+   
     
 }
 
@@ -95,5 +113,16 @@
         padding: 14% 8%;
     } */
 
+    .css-a643pv-MuiStack-root>.MuiTextField-root {
+        min-width: 0px;
+    }
     
+    .MuiStack-root {
+        padding: 0;
+        width: 166px;
+    }
+    .MuiFormControl-root {
+        min-width: 0;
+    }
+
 }

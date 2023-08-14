@@ -47,3 +47,12 @@
 .MuiInputBase-root {
     background-color: white;
 }
+
+.MuiInputBase-root input{
+    padding: 8px;
+    width: 58%;
+}
+
+.MuiStack-root {
+    padding: 0 !important;
+}
