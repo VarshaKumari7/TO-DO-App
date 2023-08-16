@@ -189,13 +189,26 @@ export default function Todo() {
           />
         </div>
         <div className="book-list" style={{ cursor: "pointer" }}>
-          <div className="btn" onClick={() => setCurrentCategory("all")}>
+          <div
+            className={`btn ${currentCategory === "all" ? "active-tab" : ""}`}
+            onClick={() => setCurrentCategory("all")}
+          >
             All
           </div>
-          <div className="btn" onClick={() => setCurrentCategory("active")}>
+          <div
+            className={`btn ${
+              currentCategory === "active" ? "active-tab" : ""
+            }`}
+            onClick={() => setCurrentCategory("active")}
+          >
             Active
           </div>
-          <div className="btn" onClick={() => setCurrentCategory("completed")}>
+          <div
+            className={`btn ${
+              currentCategory === "completed" ? "active-tab" : ""
+            }`}
+            onClick={() => setCurrentCategory("completed")}
+          >
             Completed
           </div>
         </div>

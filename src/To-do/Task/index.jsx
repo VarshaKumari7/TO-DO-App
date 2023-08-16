@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./task.css";
 export default function Task({
   type,
@@ -13,21 +13,28 @@ export default function Task({
   currentCategory,
   getTimeRemaining,
 }) {
+  const [showModel, setShowModel] = useState(false);
+  const [taskToDeleteId, setTaskToDeleteId] = useState(null);
   const activeTasks = taskList.filter((task) => !task.completed);
   const completedTasks = taskList.filter((task) => task.completed);
-  const deleteHandler = (id) => {
-    const shouldDelete = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
 
-    if (shouldDelete) {
-      const data = taskList.filter((e) => {
-        return id !== e.id;
-      });
-      setTaskList(data);
-      const updatedData = JSON.stringify(data);
-      localStorage.setItem("todotask", updatedData);
-    }
+  const deleteHandler = (id) => {
+    setTaskToDeleteId(id);
+    setShowModel(true);
+  };
+
+  const closeModel = () => {
+    setShowModel(false);
+  };
+
+  const confirmDelete = () => {
+    const data = taskList.filter((e) => {
+      return taskToDeleteId !== e.id;
+    });
+    setTaskList(data);
+    const updatedData = JSON.stringify(data);
+    localStorage.setItem("todotask", updatedData);
+    closeModel();
   };
   const updateHandler = (taskValue) => {
     setTodoText(taskValue.taskName);
@@ -184,5 +191,25 @@ export default function Task({
         return null;
     }
   };
-  return <div className="task-box-container">{renderTasks()}</div>;
+  return (
+    <div className="task-box-container">
+      {renderTasks()}
+      {showModel && (
+        <div className="model">
+          <div className="model-content">
+            <p>Are you sure?</p>
+
+            <div className="model-button">
+              <button className="cancel" onClick={closeModel}>
+                cancel
+              </button>
+              <button className="ok" onClick={confirmDelete}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
