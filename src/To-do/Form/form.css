@@ -83,8 +83,11 @@
         /* overflow: scroll; */
     }
 
+    .edit-icon img{
+        width: 32px
+    }
     .delete-icon img{
-        width: 33px;
+        width: 24px;
         /* margin-left: 62%; */
     }
 

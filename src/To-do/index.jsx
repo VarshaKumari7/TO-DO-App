@@ -103,8 +103,17 @@ export default function Todo() {
         (diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
       );
       const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+      if (days > 0) {
+        return `Deadline in ${days} days ${hours} hours ${minutes} minutes ago`;
+      } else if (hours > 0) {
+        return `Deadline in ${hours} hours ${minutes} minutes ago`;
+      } else if (minutes > 0) {
+        return `Deadline in ${minutes} minutes ago`;
+      } else {
+        return "Deadline Expired just now";
+      }
 
-      return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
+      // return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
     }
   };
 
