@@ -16,13 +16,18 @@ export default function Task({
   const activeTasks = taskList.filter((task) => !task.completed);
   const completedTasks = taskList.filter((task) => task.completed);
   const deleteHandler = (id) => {
-    const data = taskList.filter((e) => {
-      return id !== e.id;
-    });
-    console.log("data after deletion", data);
-    setTaskList(data);
-    const updatedData = JSON.stringify(data);
-    localStorage.setItem("todotask", updatedData);
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+
+    if (shouldDelete) {
+      const data = taskList.filter((e) => {
+        return id !== e.id;
+      });
+      setTaskList(data);
+      const updatedData = JSON.stringify(data);
+      localStorage.setItem("todotask", updatedData);
+    }
   };
   const updateHandler = (taskValue) => {
     setTodoText(taskValue.taskName);
