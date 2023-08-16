@@ -117,6 +117,18 @@ input.checkbox {
         margin: 0;
      }
 }
+@media screen and (min-width:500px) and (max-width:600px) {
+    .task-box-container{
+        height:438px
+    }
+}
+
+@media screen and (min-width:610px) and (max-width:820px) {
+.task-box-container {
+        /* height: 612px; */
+        height: 438px;
+    }
+}
 @media screen and (min-width:500px) and (max-width:820px) {
 .delete-icon img {
     width: 48px;
@@ -130,16 +142,16 @@ input.checkbox {
  .items-row{
     overflow: scroll;
  }
-
- .task-box-container{
-    /* height: 612px; */
-    height: 438px;
- }
 }
 
 
-@media screen and (min-width:820px) and (max-width:1500px) {
+@media screen and (min-width:830px) and (max-width:1500px) {
 .task-box-container{
-    height: 553px;
+    /* height: 553px; */
+    height: 398px;
 }
 }   
+
+@media screen and (min-width:389px) and (max-width:500px) {
+.task-box-container{ height:  553px;}
+}

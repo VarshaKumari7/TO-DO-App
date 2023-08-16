@@ -100,7 +100,8 @@
 
 @media screen and (min-width:500px) and (max-width:820px){
     .content-part{
-        margin-top: 22%;
+        /* margin-top: 22%; */
+        margin-top: 10%;
         height: 67vh;
     }
 
