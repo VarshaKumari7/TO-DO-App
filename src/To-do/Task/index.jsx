@@ -70,25 +70,25 @@ export default function Task({
                   ? getTimeRemaining(taskValue.deadline)
                   : "Not set"}
               </div>
-            </div>
-            <div className="icon">
-              <div className="edit-icon">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
-                  alt="img"
-                  onClick={() => {
-                    updateHandler(taskValue);
-                  }}
-                />
-              </div>
-              <div className="delete-icon">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
-                  alt="img"
-                  onClick={() => {
-                    deleteHandler(taskValue.id);
-                  }}
-                />
+              <div className="icon">
+                <div className="edit-icon">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
+                    alt="img"
+                    onClick={() => {
+                      updateHandler(taskValue);
+                    }}
+                  />
+                </div>
+                <div className="delete-icon">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
+                    alt="img"
+                    onClick={() => {
+                      deleteHandler(taskValue.id);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -117,25 +117,25 @@ export default function Task({
                   ? getTimeRemaining(taskValue.deadline)
                   : "Not set"}
               </div>
-            </div>
-            <div className="icon">
-              <div className="edit-icon">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
-                  alt="img"
-                  onClick={() => {
-                    updateHandler(taskValue);
-                  }}
-                />
-              </div>
-              <div className="delete-icon">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
-                  alt="img"
-                  onClick={() => {
-                    deleteHandler(taskValue.id);
-                  }}
-                />
+              <div className="icon">
+                <div className="edit-icon">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
+                    alt="img"
+                    onClick={() => {
+                      updateHandler(taskValue);
+                    }}
+                  />
+                </div>
+                <div className="delete-icon">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
+                    alt="img"
+                    onClick={() => {
+                      deleteHandler(taskValue.id);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -164,25 +164,25 @@ export default function Task({
                   ? getTimeRemaining(taskValue.deadline)
                   : "Not set"}
               </div>
-            </div>
-            <div className="icon">
-              <div className="edit-icon">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
-                  alt="img"
-                  onClick={() => {
-                    updateHandler(taskValue);
-                  }}
-                />
-              </div>
-              <div className="delete-icon">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
-                  alt="img"
-                  onClick={() => {
-                    deleteHandler(taskValue.id);
-                  }}
-                />
+              <div className="icon">
+                <div className="edit-icon">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/6065/6065488.png"
+                    alt="img"
+                    onClick={() => {
+                      updateHandler(taskValue);
+                    }}
+                  />
+                </div>
+                <div className="delete-icon">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIPngagWTJiM6DRcYNZgsY87vlDVmqhdzwlTvW7moFf-hvzV4JQqmZ1xNnpP_XpYp2G4&usqp=CAU"
+                    alt="img"
+                    onClick={() => {
+                      deleteHandler(taskValue.id);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -191,6 +191,7 @@ export default function Task({
         return null;
     }
   };
+  //
   return (
     <div className="task-box-container">
       {renderTasks()}

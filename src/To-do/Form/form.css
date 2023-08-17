@@ -74,7 +74,7 @@
         /* margin-top: 25%; */
         margin-top: 17%;
         padding: 0 11%;
-        height: 79vh;
+        /* height: 79vh; */
     }
     .items-row{
         padding: 9% 0;
@@ -102,7 +102,7 @@
     .content-part{
         /* margin-top: 22%; */
         margin-top: 10%;
-        height: 67vh;
+        /* height: 67vh; */
     }
 
     .form{

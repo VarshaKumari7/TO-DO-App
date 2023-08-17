@@ -152,67 +152,67 @@ export default function Todo() {
 
   return (
     <div className="container">
-      <div className="body-container">
-        <div className="content-part">
-          <form className="form-box">
-            <Inputbox
-              type={"text"}
-              placeholder={"What needs to be done?"}
-              value={todoText}
-              onChange={formInput}
-              isRed={isRed}
-              referenceInput={referenceInput}
-            />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DateTimePicker"]}>
-                <DateTimePicker
-                  value={selectedDate}
-                  onChange={handeDateChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-            <Button submitHandler={submitHandler} title={"Add task"}></Button>
-          </form>
-          <Task
-            type={"checkbox"}
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-            taskList={taskList}
-            setTaskList={setTaskList}
-            setTodoText={setTodoText}
-            setIsEdit={setIsEdit}
-            setEditedTodo={setEditedTodo}
+      <div className="body-container"></div>
+      <div className="content-part">
+        <form className="form-box">
+          <Inputbox
+            type={"text"}
+            placeholder={"What needs to be done?"}
+            value={todoText}
+            onChange={formInput}
+            isRed={isRed}
             referenceInput={referenceInput}
-            currentCategory={currentCategory}
-            getTimeRemaining={getTimeRemaining}
           />
-          <div className="book-list" style={{ cursor: "pointer" }}>
-            <div
-              className={`btn ${currentCategory === "all" ? "active-tab" : ""}`}
-              onClick={() => setCurrentCategory("all")}
-            >
-              All
-            </div>
-            <div
-              className={`btn ${
-                currentCategory === "active" ? "active-tab" : ""
-              }`}
-              onClick={() => setCurrentCategory("active")}
-            >
-              Active
-            </div>
-            <div
-              className={`btn ${
-                currentCategory === "completed" ? "active-tab" : ""
-              }`}
-              onClick={() => setCurrentCategory("completed")}
-            >
-              Completed
-            </div>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DateTimePicker"]}>
+              <DateTimePicker
+                value={selectedDate}
+                onChange={handeDateChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+          <Button submitHandler={submitHandler} title={"Add task"}></Button>
+        </form>
+        <Task
+          type={"checkbox"}
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+          taskList={taskList}
+          setTaskList={setTaskList}
+          setTodoText={setTodoText}
+          setIsEdit={setIsEdit}
+          setEditedTodo={setEditedTodo}
+          referenceInput={referenceInput}
+          currentCategory={currentCategory}
+          getTimeRemaining={getTimeRemaining}
+        />
+        <div className="book-list" style={{ cursor: "pointer" }}>
+          <div
+            className={`btn ${currentCategory === "all" ? "active-tab" : ""}`}
+            onClick={() => setCurrentCategory("all")}
+          >
+            All
+          </div>
+          <div
+            className={`btn ${
+              currentCategory === "active" ? "active-tab" : ""
+            }`}
+            onClick={() => setCurrentCategory("active")}
+          >
+            Active
+          </div>
+          <div
+            className={`btn ${
+              currentCategory === "completed" ? "active-tab" : ""
+            }`}
+            onClick={() => setCurrentCategory("completed")}
+          >
+            Completed
           </div>
         </div>
       </div>
+      {/* </div> */}
     </div>
   );
 }

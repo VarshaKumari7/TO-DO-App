@@ -3,7 +3,8 @@
 }
 
 .task-box-container{
-    height: 554px;
+    /* height: 554px; */
+    height: 474px;
     overflow-y: scroll;
 }
 
@@ -28,6 +29,7 @@
 .check-box {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 input.checkbox {
@@ -39,9 +41,7 @@ input.checkbox {
 .todos {
     overflow-wrap: break-word;
     margin: 0 auto;
-    /* max-width: 406px; */
-    /* max-width: 334px; */
-    width: 334px;
+    width: 222px;
     padding: 12px;
     font-size: 2rem;
 }
@@ -161,16 +161,16 @@ input.checkbox {
 }
 @media screen and (min-width:500px) and (max-width:600px) {
     .task-box-container{
-        height:519px
+        height:429px
     }
-    .content-part {
+    /* .content-part {
         height: 84vh;
-    }
+    } */
 }
 
 @media screen and (min-width:601px) and (max-width:820px) {
 .task-box-container {
-        height: 504px;
+        height: 446px;
     }
 }
 
