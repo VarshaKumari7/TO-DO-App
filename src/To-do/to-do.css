@@ -16,8 +16,8 @@
 }
 
 .content-part{
-    margin: 6%;
-    height: 73vh;
+    margin: 4% 6% 0 6%;
+    /* height: 71vh; */
     /* height: 67vh; */
 }
 
@@ -33,13 +33,14 @@
 }
 .book-list{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    margin: 0 30px;
+    margin: 30px 25px 0 25px;
 }
 
 .btn {
-    padding: 0 14%;
+    padding: 0 4%;
+    font-size: 1.5rem;
 }
 .react-datetime-picker {
     flex: 3;
@@ -65,6 +66,25 @@
 
 @media screen and (max-width:500px) {
     .btn{
-        padding: 0 6%;
+        padding: 0px 8%;
     }
+
+    .book-list{
+        margin-right: 12px;
+    }
+}
+
+@media screen and (max-width:270px) {
+.book-list {
+    display: grid;
+    margin-top: 30px;
+    grid-template-columns: repeat(2, 1fr);
+}
+ .btn {
+     padding: 0;
+ }
+
+ .tab.active {
+     padding: 0;
+ }
 }
