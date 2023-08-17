@@ -41,6 +41,7 @@
     align-items: center;
     /* margin: 30px 0; */
     width: 100%;
+    background-color: white;
 }
 
 .btn {
@@ -69,9 +70,6 @@
 }
 
 @media screen and (max-width:500px) {
-    /* .btn{
-        padding: 0px 8%;
-    } */
 
     .book-list{
         margin-right: 12px;
