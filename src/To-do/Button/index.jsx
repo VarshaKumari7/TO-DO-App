@@ -1,16 +1,16 @@
-import React, { Children } from "react";
+import React from "react";
 import "../Form/form.css";
 export default function Button({
   submitHandler,
   className = "bttn",
   title,
-  children,
+  // children,
   ...props
 }) {
   return (
     <div className="btn-section">
       <button className={className} onClick={submitHandler} {...props}>
-        {children}
+        {/* {children} */}
         {title}
       </button>
     </div>

@@ -7,15 +7,8 @@ export default function Inputbox({
   onChange,
   placeholder,
   isRed,
+  referenceInput,
 }) {
-  // console.log("4", isRed, value, typeof value);
-  // const valueValidator = () => {
-  //   if (value) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
   return (
     <div className={`form ${isRed ? "form-validation" : ""}`}>
       <input
@@ -24,6 +17,8 @@ export default function Inputbox({
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        // autoFocus
+        ref={referenceInput}
       />
     </div>
   );

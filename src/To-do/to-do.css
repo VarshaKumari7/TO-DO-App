@@ -16,9 +16,75 @@
 }
 
 .content-part{
-    margin: 6%;
+    margin: 4% 6% 0 6%;
+    /* height: 71vh; */
+    /* height: 67vh; */
+}
+
+.date-button{
+    background-color: white;
+    display: flex;
+    width: 80%;
 }
 
 .form-box{
     display: flex;
+    align-items: center;
+}
+.book-list{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px 25px 0 25px;
+}
+
+.btn {
+    padding: 0 4%;
+    font-size: 1.5rem;
+}
+.react-datetime-picker {
+    flex: 3;
+}
+
+.MuiInputBase-root {
+    background-color: white;
+}
+
+.MuiInputBase-root input{
+    padding: 8px;
+    width: 58%;
+}
+
+.MuiStack-root {
+    padding: 0 !important;
+}
+
+.active-tab{
+    background-color: #aeb2b6;
+    /* padding: 0 14%; */
+}
+
+@media screen and (max-width:500px) {
+    .btn{
+        padding: 0px 8%;
+    }
+
+    .book-list{
+        margin-right: 12px;
+    }
+}
+
+@media screen and (max-width:270px) {
+.book-list {
+    display: grid;
+    margin-top: 30px;
+    grid-template-columns: repeat(2, 1fr);
+}
+ .btn {
+     padding: 0;
+ }
+
+ .tab.active {
+     padding: 0;
+ }
 }
