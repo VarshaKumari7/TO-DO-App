@@ -1,53 +1,79 @@
 const initialState = {
   taskList: [],
   currentCategory: "all",
-  // todoText: "",
-  // selectedDate: dayjs(),
 };
 
-const reducer = (state = initialState, action) => {
+const localState = localStorage.getItem("redux");
+const initialStateFromLocalStorage = localState
+  ? JSON.parse(localState)
+  : initialState;
+
+const reducer = (state = initialStateFromLocalStorage, action) => {
   switch (action.type) {
     case "ADD_TASK":
+      const updatedAddTaskList = [
+        ...state.taskList,
+        {
+          id: Math.random() * 1234,
+          taskName: action.payload.taskName,
+          completed: false,
+          deadline: action.payload.deadline,
+        },
+      ];
+      // localStorage.setItem("redux", JSON.stringify(updatedAddTaskList)); Error //
+      localStorage.setItem(
+        "redux",
+        JSON.stringify({ ...state, taskList: updatedAddTaskList })
+      );
       return {
         ...state,
-        taskList: [...state.taskList, action.payload],
+        taskList: updatedAddTaskList,
       };
+
     case "TOGGLE_TASK":
+      const updatedToggleTaskList = state.taskList.map((task) =>
+        task.id === action.payload
+          ? { ...task, completed: !task.completed }
+          : task
+      );
+      localStorage.setItem(
+        "redux",
+        JSON.stringify({ ...state, taskList: updatedToggleTaskList })
+      );
       return {
         ...state,
-        taskList: state.taskList.map((task) =>
-          task.id === action.payload
-            ? { ...task, completed: !task.completed }
-            : task
-        ),
+        taskList: updatedToggleTaskList,
       };
+
     case "EDIT_TASK":
+      const updatedEditTaskList = state.taskList.map((task) =>
+        task.id === action.payload.id ? action.payload.updatedTask : task
+      );
+      localStorage.setItem(
+        "redux",
+        JSON.stringify({ ...state, taskList: updatedEditTaskList })
+      );
       return {
         ...state,
-        taskList: state.taskList.map((task) =>
-          task.id === action.payload.id ? action.payload.newData : task
-        ),
+        taskList: updatedEditTaskList,
       };
+
     case "DELETE_TASK":
+      const updatedDeleteTaskList = state.taskList.filter(
+        (task) => task.id !== action.payload
+      );
+      localStorage.setItem("redux", JSON.stringify(updatedDeleteTaskList));
       return {
         ...state,
-        taskList: state.taskList.filter((task) => task.id !== action.payload),
+        taskList: updatedDeleteTaskList,
       };
+
     case "SET_CURRENT_CATEGORY":
       return {
         ...state,
         currentCategory: action.payload,
       };
-    case "SET_TODO_TEXT":
-      return {
-        ...state,
-        todoText: action.payload,
-      };
-    case "SET_SELECTED_DATE":
-      return {
-        ...state,
-        selectedDate: action.payload,
-      };
+
     default:
       return state;
   }

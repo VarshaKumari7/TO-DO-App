@@ -6,8 +6,6 @@ import {
   editTask,
   deleteTask,
   setCurrentCategory,
-  setTodoText,
-  setSelectedDate,
 } from "../actions";
 import "./to-do.css";
 import Task from "./Task";
@@ -25,93 +23,65 @@ dayjs.extend(relativeTime);
 
 export default function Todo() {
   const [todoText, setTodoText] = useState("");
-  const [taskList, setTaskList] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
   const [isRed, setIsRed] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editedTodo, setEditedTodo] = useState({});
-  // const [currentCategory, setCurrentCategory] = useState("all");
-  const [selectedDate, setSelectedDate] = useState(dayjs());
 
-  const { tskList, currentCategory, toDoText } = useSelector(
-    (state) => state.reducer
-  );
+  const { currentCategory } = useSelector((state) => state.reducer);
 
   const list = useSelector((state) => state.reducer.taskList);
-  console.log("List value 38", list);
-  const allState = useSelector((state) => state);
+  // const entireStore = useSelector((state) => state);
+  // console.log("List value 38", entireStore, list);
+  // const allState = useSelector((state) => state);
+
   console.log(currentCategory, "currentCategory");
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("")) {
+  //     dispatch(addTask(localStorage.getItem("")));
+  //   }
+  // }, []);
+
+  // useEffect(()=>{
+  //   dispatch(())
+  // },[list])
 
   function formInput(event) {
     const valueData = event.target.value;
     setTodoText(valueData);
   }
 
+  function addTaskHandler() {
+    if (
+      todoText.trim() !== "" &&
+      !list.some((listval) => listval.taskName === todoText)
+    ) {
+      dispatch(addTask(todoText, selectedDate));
+      // console.log("46 todo text of input", todoText, selectedDate);
+      setTodoText("");
+      setSelectedDate(dayjs());
+      setIsRed(false);
+    } else {
+      setIsRed(true);
+    }
+  }
+
   const deleteHandler = (id) => {
     dispatch(deleteTask(id));
   };
 
-  // function handleEdit(editEvent) {
-  //   const task = editEvent;
-  //   setTaskList((preval) => {
-  //     const editedData = preval.map((taskval) => {
-  //       if (taskval.id === task.id) {
-  //         taskval["taskName"] = todoText;
-  //       }
-  //       return taskval;
-  //     });
-  //     const data = JSON.stringify([...editedData]);
-  //     localStorage.setItem("todotask", data);
-  //     return [...editedData];
-  //   });
-  //   setIsEdit(false);
-  //   setTodoText("");
-  // }
-
-  // function addTaskHandler() {
-  //   const task = {
-  //     id: Math.random() * 1234,
-  //     taskName: todoText,
-  //     completed: false,
-  //     deadline: selectedDate.format(),
-  //   };
-  //   if (
-  //     todoText.trim() !== "" &&
-  //     !taskList.some((task) => task.taskName === todoText)
-  //   ) {
-  //     setTaskList((pretask) => {
-  //       const data = JSON.stringify([...pretask, task]);
-  //       localStorage.setItem("todotask", data);
-
-  //       return [...pretask, task];
-  //     });
-  //     setTodoText("");
-  //     setIsRed(false);
-  //     setSelectedDate(null);
-  //   } else {
-  //     setIsRed(true);
-  //   }
-  // }
-
-  function addTaskHandler() {
-    // const task = {
-    //   id: Math.random() * 1234,
-    //   taskName: todoText,
-    //   completed: false,
-    //   deadline: selectedDate.format(),
-    // };
-    console.log(todoText, addTask, "jfkdj");
-    dispatch(addTask(todoText), setTodoText(""));
-    // dispatch(setSelectedDate(dayjs()));
-  }
-
-  // const handeDateChange = (newDate) => {
-  //   setSelectedDate(newDate);
-  // };
+  const updateHandler = (taskValue) => {
+    setTodoText(taskValue.taskName);
+    setEditedTodo(taskValue);
+    setIsEdit(true);
+    setSelectedDate(dayjs(taskValue.deadline));
+    referenceInput.current.focus();
+  };
 
   const handeDateChange = (newDate) => {
-    // dispatch(setSelectedDate(newDate));
+    setSelectedDate(newDate);
   };
 
   const getTimeRemaining = (deadline) => {
@@ -145,39 +115,51 @@ export default function Todo() {
       );
       const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
       if (days > 0) {
-        return `Deadline in ${days} days ${hours} hours ${minutes} minutes ago`;
+        return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
       } else if (hours > 0) {
-        return `Deadline in ${hours} hours ${minutes} minutes ago`;
+        return `Deadline in ${hours} hours ${minutes} minutes`;
       } else if (minutes > 0) {
-        return `Deadline in ${minutes} minutes ago`;
+        return `Deadline in ${minutes} minutes`;
       } else {
         return "Deadline Expired just now";
       }
-
-      // return `Deadline in ${days} days ${hours} hours ${minutes} minutes`;
     }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (isEdit) {
-    //   handleEdit(editedTodo);
-    // } else {
-    addTaskHandler(todoText);
-    console.log("toDoTextAction", todoText);
-    // }
-    // setSelectedDate(dayjs());
-  };
-
-  const componentOnMount = () => {
-    const data = JSON.parse(localStorage.getItem("todotask"));
-    console.log("get data from localstorage", data);
-    if (data) {
-      setTaskList([...data]);
+    if (isEdit) {
+      if (todoText.trim() === "") {
+        setIsRed(true);
+      } else {
+        dispatch(
+          editTask(editedTodo.id, {
+            ...editedTodo,
+            taskName: todoText,
+            deadline: selectedDate.format(),
+          })
+        );
+        setIsRed(false);
+      }
+      setIsEdit(false);
+      setEditedTodo({});
+      setTodoText("");
+    } else {
+      addTaskHandler(todoText);
+      setTodoText("");
     }
+    setSelectedDate(dayjs());
   };
 
-  useEffect(componentOnMount, []);
+  // const componentOnMount = () => {
+  //   const data = JSON.parse(localStorage.getItem("todotask"));
+  //   console.log("get data from localstorage", data);
+  //   if (data) {
+  //     setTaskList([...data]);
+  //   }
+  // };
+
+  // useEffect(componentOnMount, []);
 
   const handleCheckboxChange = (id) => {
     dispatch(toggleTask(id));
@@ -211,17 +193,11 @@ export default function Todo() {
         </form>
         <Task
           type={"checkbox"}
-          checked={isChecked}
           onChange={handleCheckboxChange}
           list={list}
           currentCategory={currentCategory}
           onDelete={deleteHandler}
-          taskList={taskList}
-          setTaskList={setTaskList}
-          setTodoText={setTodoText}
-          setIsEdit={setIsEdit}
-          setEditedTodo={setEditedTodo}
-          referenceInput={referenceInput}
+          updateHandler={updateHandler}
           getTimeRemaining={getTimeRemaining}
         />
         <div className="book-list" style={{ cursor: "pointer" }}>

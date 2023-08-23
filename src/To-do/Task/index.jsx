@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./task.css";
 export default function Task({
   type,
@@ -6,41 +6,14 @@ export default function Task({
   onChange,
   list,
   onDelete,
-  editTask,
-  setTodoText,
-  setTaskList,
-  setIsEdit,
-  setEditedTodo,
-  referenceInput,
+  updateHandler,
   currentCategory,
   getTimeRemaining,
 }) {
-  const [taskToDeleteId, setTaskToDeleteId] = useState(null);
   const activeTasks = list.filter((task) => !task.completed);
   const completedTasks = list.filter((task) => task.completed);
 
   console.log("list value in task component 22", list, currentCategory);
-
-  // const closeModel = () => {
-  //   setShowModel(false);
-  // };
-
-  // const confirmDelete = () => {
-  //   const data = list.filter((e) => {
-  //     return taskToDeleteId !== e.id;
-  //   });
-  //   setTaskList(data);
-  //   const updatedData = JSON.stringify(data);
-  //   localStorage.setItem("todotask", updatedData);
-  //   closeModel();
-  // };
-  const updateHandler = (taskValue) => {
-    setTodoText(taskValue.taskName);
-    setEditedTodo(taskValue);
-    setIsEdit(true);
-    referenceInput.current.focus();
-    console.log("object3444444", taskValue);
-  };
 
   {
     console.log(list, currentCategory, "list");
